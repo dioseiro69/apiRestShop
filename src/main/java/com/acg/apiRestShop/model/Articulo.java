@@ -1,67 +1,82 @@
-package com.acg.apiRestShop.Articulo;
+package com.acg.apiRestShop.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name = "tb_articulo")
+@Table(name = "articulo")
 public class Articulo {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_articulo")
 	private int idArticulo;
-	
-	@Column(name="nombre")
+	@Column(name="articulo")
 	private String nombreArticulo;
 	
-	@Column(name="id_catalogo")
-	private int idCatalogo;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_pedido")
+	@JsonBackReference
+	private Pedido pedido;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_catalogo")
+	@JsonBackReference
+	private Catalogo catalogo;
+	
 	public Articulo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Articulo(int idArticulo, String nombreArticulo, int idCatalogo) {
-		super();
-		this.idArticulo = idArticulo;
-		this.nombreArticulo = nombreArticulo;
-		this.idCatalogo = idCatalogo;
-	}
 
 	public int getIdArticulo() {
 		return idArticulo;
 	}
 
+
 	public void setIdArticulo(int idArticulo) {
 		this.idArticulo = idArticulo;
 	}
+
 
 	public String getNombreArticulo() {
 		return nombreArticulo;
 	}
 
+
 	public void setNombreArticulo(String nombreArticulo) {
 		this.nombreArticulo = nombreArticulo;
 	}
 
-	public int getIdCatalogo() {
-		return idCatalogo;
+
+	public Catalogo getCatalogo() {
+		return catalogo;
 	}
 
-	public void setIdCatalogo(int idCatalogo) {
-		this.idCatalogo = idCatalogo;
+
+	public void setCatalogo(Catalogo catalogo) {
+		this.catalogo = catalogo;
 	}
 
-	@Override
-	public String toString() {
-		return "Articulo [idArticulo=" + idArticulo + ", nombreArticulo=" + nombreArticulo + ", idCatalogo="
-				+ idCatalogo + "]";
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 }
