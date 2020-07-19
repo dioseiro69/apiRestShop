@@ -1,5 +1,6 @@
 package com.acg.apiRestShop.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,14 +26,14 @@ public class Articulo {
 	private String nombreArticulo;
 	
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
 	@JoinColumn(name="id_pedido")
 	@JsonBackReference
 	private Pedido pedido;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_catalogo")
+	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
 	@JsonBackReference
+    @JoinColumn(name = "id_catalogo", referencedColumnName = "id_catalogo")
 	private Catalogo catalogo;
 	
 	public Articulo() {

@@ -1,18 +1,16 @@
 package com.acg.apiRestShop.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "catalogo")
@@ -26,10 +24,10 @@ public class Catalogo {
 	@Column(name="nombre")
 	private String nombreCatalogo;
 
-	@OneToMany(mappedBy = "catalogo", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Articulo> articulos = new ArrayList<>();
 
+	 @OneToOne(mappedBy = "catalogo" ,cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	 private Articulo articulo;
+	 
 	public int getIdCatalogo() {
 		return idCatalogo;
 	}
@@ -46,14 +44,13 @@ public class Catalogo {
 		this.nombreCatalogo = nombreCatalogo;
 	}
 
-	public List<Articulo> getArticulos() {
-		return articulos;
+	public Articulo getArticulo() {
+		return articulo;
 	}
 
-	public void setArticulos(List<Articulo> articulos) {
-		this.articulos = articulos;
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
 	}
 
-	
 	
 }
