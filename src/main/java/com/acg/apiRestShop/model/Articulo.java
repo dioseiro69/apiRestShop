@@ -80,5 +80,12 @@ public class Articulo {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Articulo [idArticulo=" + idArticulo + ", nombreArticulo=" + nombreArticulo + ", pedido=" + pedido
+				+ ", catalogo=" + catalogo + "]";
+	}
 	
 }

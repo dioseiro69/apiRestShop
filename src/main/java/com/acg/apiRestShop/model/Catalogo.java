@@ -52,5 +52,10 @@ public class Catalogo {
 		this.articulo = articulo;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Catalogo [idCatalogo=" + idCatalogo + ", nombreCatalogo=" + nombreCatalogo + ", articulo=" + articulo
+				+ "]";
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.acg.apiRestShop.Service.PedidoService;
 import com.acg.apiRestShop.model.Pedido;
@@ -17,28 +18,28 @@ public class PedidoServiceImpl implements PedidoService {
 	private PedidoRepository pedidoRepository;
 	
 	
-	@Override
+	@Transactional
 	public List<Pedido> getPedidos() {
 		
-		return pedidoRepository.findAll(); 
+		return (List<Pedido>) pedidoRepository.findAll(); 
 	}
 
 
-	@Override
-	public void crearPedido(Pedido pedido) {
-		pedidoRepository.save(pedido);
+	@Transactional
+	public Pedido crearPedido(Pedido pedido) {
+		return pedidoRepository.save(pedido);
 		
 	}
 
 
 
-	@Override
+	@Transactional
 	public Optional<Pedido> getPedido(Long idPedido) {
 		return pedidoRepository.findById(idPedido.intValue());
 	}
 
 
-	@Override
+	@Transactional
 	public String borrarPedido(Long idPedido) {
 		if (pedidoRepository.findById(idPedido.intValue()).isPresent()) {
 			pedidoRepository.deleteById(idPedido.intValue());
@@ -48,12 +49,11 @@ public class PedidoServiceImpl implements PedidoService {
 	}
 
 
-	@Override
-	public String updatePedido(Pedido pedido) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Pedido updatePedido(Pedido student) {
+		Pedido pedido = pedidoRepository.save(student);
+		return pedido;
 	}
-
 
 
 }

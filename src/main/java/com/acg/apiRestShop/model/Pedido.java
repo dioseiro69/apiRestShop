@@ -1,5 +1,6 @@
 package com.acg.apiRestShop.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,6 +25,8 @@ public class Pedido {
 	private int idPedido;
 	@Column(name="nombre")
 	private String nombrePedido;
+	@Column(name="fecha_pedido")
+	private Date fechaPedido;
 	
 	
 	@OneToMany(mappedBy = "pedido", cascade= {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
@@ -36,6 +39,17 @@ public class Pedido {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+
+	public Pedido(int idPedido, String nombrePedido, Date fechaPedido, List<Articulo> articulos) {
+		super();
+		this.idPedido = idPedido;
+		this.nombrePedido = nombrePedido;
+		this.fechaPedido = fechaPedido;
+		this.articulos = articulos;
+	}
+
 
 
 	public int getIdPedido() {
@@ -67,7 +81,22 @@ public class Pedido {
 		this.articulos = articulos;
 	}
 
-	
+
+	public Date getFechaPedido() {
+		return fechaPedido;
+	}
+
+
+	public void setFechaPedido(Date fechaPedido) {
+		this.fechaPedido = fechaPedido;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Pedido [idPedido=" + idPedido + ", nombrePedido=" + nombrePedido + ", fechaPedido=" + fechaPedido
+				+ ", articulos=" + articulos + "]";
+	}
 
 	
 }
